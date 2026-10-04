@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>NavRakshak | Smart Personal Safety</title>
+
+<style>
+/* =========================
+   RESET
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #080808;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+:root {
+    --orange: #ff6a00;
+    --orange-light: #ff8c32;
+    --dark: #080808;
+    --card: #111111;
+    --text: #f5f5f5;
+    --gray: #a5a5a5;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background: rgba(8,8,8,0.82);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255,106,0,0.15);
+}
+
+.navbar {
+    max-width: 1200px;
+    margin: auto;
+    padding: 18px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 800;
+    color: white;
+}
+
+.logo span {
+    color: var(--orange);
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+}
+
+.nav-links a {
+    color: #ddd;
+    text-decoration: none;
+    transition: .3s;
+}
+
+.nav-links a:hover {
+    color: var(--orange);
+}
+
+.menu {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 120px 25px 70px;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: var(--orange);
+    filter: blur(180px);
+    opacity: .13;
+    top: 10%;
+    right: -100px;
+}
+
+.hero-content {
+    max-width: 1150px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.badge {
+    display: inline-block;
+    padding: 8px 15px;
+    border: 1px solid rgba(255,106,0,.5);
+    border-radius: 30px;
+    color: var(--orange-light);
+    margin-bottom: 20px;
+    background: rgba(255,106,0,.07);
+}
+
+.hero h1 {
+    font-size: clamp(50px, 7vw, 90px);
+    line-height: .95;
+    margin-bottom: 25px;
+}
+
+.hero h1 span {
+    color: var(--orange);
+}
+
+.hero p {
+    max-width: 600px;
+    color: var(--gray);
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+.buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 35px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 14px 25px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    font-size: 15px;
+    transition: .3s;
+}
+
+.btn-primary {
+    background: var(--orange);
+    color: #fff;
+    box-shadow: 0 0 25px rgba(255,106,0,.25);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    background: #ff7b1a;
+}
+
+.btn-outline {
+    color: white;
+    border: 1px solid #444;
+    background: transparent;
+}
+
+.btn-outline:hover {
+    border-color: var(--orange);
+    color: var(--orange);
+}
+
+/* =========================
+   SAFETY CARD
+========================= */
+
+.safety-card {
+    background: linear-gradient(145deg,#171717,#0d0d0d);
+    border: 1px solid rgba(255,106,0,.25);
+    border-radius: 30px;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 30px 80px rgba(0,0,0,.5);
+    position: relative;
+}
+
+.safety-ring {
+    width: 230px;
+    height: 230px;
+    border-radius: 50%;
+    margin: auto;
+    border: 1px solid rgba(255,106,0,.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulseRing 2.5s infinite;
+}
+
+.sos-button {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 8px solid rgba(255,255,255,.08);
+    background: var(--orange);
+    color: white;
+    font-size: 28px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 0 45px rgba(255,106,0,.45);
+    transition: .3s;
+}
+
+.sos-button:hover {
+    transform: scale(1.07);
+}
+
+.safety-card h3 {
+    margin-top: 25px;
+    font-size: 22px;
+}
+
+.safety-card p {
+    margin-top: 10px;
+    color: var(--gray);
+    font-size: 14px;
+}
+
+@keyframes pulseRing {
+    0%,100% {
+        box-shadow: 0 0 0 0 rgba(255,106,0,.15);
+    }
+    50% {
+        box-shadow: 0 0 0 30px rgba(255,106,0,0);
+    }
+}
+
+/* =========================
+   SECTION
+========================= */
+
+section {
+    padding: 100px 25px;
+}
+
+.container {
+    max-width: 1150px;
+    margin: auto;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 55px;
+}
+
+.section-title span {
+    color: var(--orange);
+}
+
+.section-title h2 {
+    font-size: 42px;
+    margin-bottom: 12px;
+}
+
+.section-title p {
+    color: var(--gray);
+}
+
+/* =========================
+   FEATURES
+========================= */
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+}
+
+.feature {
+    background: var(--card);
+    padding: 30px;
+    border-radius: 18px;
+    border: 1px solid #202020;
+    transition: .35s;
+}
+
+.feature:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255,106,0,.5);
+}
+
+.icon {
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background: rgba(255,106,0,.12);
+    font-size: 27px;
+    margin-bottom: 20px;
+}
+
+.feature h3 {
+    margin-bottom: 12px;
+}
+
+.feature p {
+    color: var(--gray);
+    line-height: 1.6;
+}
+
+/* =========================
+   HOW IT WORKS
+========================= */
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 25px;
+}
+
+.step {
+    text-align: center;
+    padding: 30px;
+}
+
+.step-number {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: var(--orange);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.step p {
+    color: var(--gray);
+    margin-top: 10px;
+    line-height: 1.6;
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard {
+    background: linear-gradient(145deg,#151515,#0d0d0d);
+    border: 1px solid #222;
+    border-radius: 25px;
+    padding: 35px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.dashboard-box {
+    background: #0b0b0b;
+    padding: 25px;
+    border-radius: 16px;
+    border: 1px solid #242424;
+}
+
+.status {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.online {
+    color: #40e080;
+}
+
+.location-box {
+    padding: 25px;
+    border-radius: 15px;
+    background: rgba(255,106,0,.07);
+    border: 1px solid rgba(255,106,0,.2);
+}
+
+.location-box p {
+    color: var(--gray);
+    margin-top: 8px;
+}
+
+/* =========================
+   CTA
+========================= */
+
+.cta {
+    text-align: center;
+    background:
+        radial-gradient(circle at center,rgba(255,106,0,.12),transparent 55%);
+}
+
+.cta h2 {
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+.cta p {
+    color: var(--gray);
+    margin-bottom: 30px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    border-top: 1px solid #222;
+    padding: 35px 25px;
+    text-align: center;
+    color: #777;
+}
+
+footer span {
+    color: var(--orange);
+}
+
+/* =========================
+   SOS MODAL
+========================= */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.82);
+    backdrop-filter: blur(10px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 20px;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-box {
+    max-width: 450px;
+    width: 100%;
+    background: #111;
+    border: 1px solid rgba(255,106,0,.4);
+    border-radius: 22px;
+    padding: 35px;
+    text-align: center;
+}
+
+.modal-box h2 {
+    color: var(--orange);
+    margin-bottom: 15px;
+}
+
+.countdown {
+    font-size: 65px;
+    font-weight: bold;
+    margin: 20px;
+}
+
+.modal-box p {
+    color: var(--gray);
+    line-height: 1.6;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:850px) {
+
+    .nav-links {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: #0b0b0b;
+        flex-direction: column;
+        text-align: center;
+        padding: 25px;
+        display: none;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .menu {
+        display: block;
+    }
+
+    .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .hero p {
+        margin: auto;
+    }
+
+    .buttons {
+        justify-content: center;
+    }
+
+    .features,
+    .steps {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width:600px) {
+
+    .features,
+    .steps {
+        grid-template-columns: 1fr;
+    }
+
+    section {
+        padding: 70px 20px;
+    }
+
+    .section-title h2 {
+        font-size: 32px;
+    }
+
+    .cta h2 {
+        font-size: 32px;
+    }
+
+    .safety-card {
+        padding: 30px 15px;
+    }
+
+    .safety-ring {
+        width: 200px;
+        height: 200px;
+    }
+
+    .sos-button {
+        width: 130px;
+        height: 130px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<header>
+
+<nav class="navbar">
+
+<div class="logo">
+    NAV<span>RAKSHAK</span>
+</div>
+
+<ul class="nav-links" id="navLinks">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#dashboard">Safety</a></li>
+</ul>
+
+<div class="menu" onclick="toggleMenu()">☰</div>
+
+</nav>
+
+</header>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero" id="home">
+
+<div class="hero-content">
+
+<div>
+
+<div class="badge">
+    🛡️ Smart Personal Safety System
+</div>
+
+<h1>
+    Your Safety.<br>
+    <span>One Tap Away.</span>
+</h1>
+
+<p>
+    NavRakshak is a smart personal safety platform designed
+    to help you quickly alert trusted contacts, share your
+    location and respond during emergency situations.
+</p>
+
+<div class="buttons">
+
+<a href="#features" class="btn btn-primary">
+    Explore Features
+</a>
+
+<button class="btn btn-outline" onclick="openSOS()">
+    🚨 Test SOS
+</button>
+
+</div>
+
+</div>
+
+
+<div class="safety-card">
+
+<div class="safety-ring">
+
+<button class="sos-button" onclick="openSOS()">
+    SOS
+</button>
+
+</div>
+
+<h3>Emergency Assistance</h3>
+
+<p>
+    Tap SOS to start the emergency response demo.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     FEATURES
+========================= -->
+
+<section id="features">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Powerful <span>Safety Features</span></h2>
+
+<p>
+Everything you need for faster emergency response.
+</p>
+
+</div>
+
+
+<div class="features">
+
+<div class="feature">
+
+<div class="icon">🚨</div>
+
+<h3>One-Tap SOS</h3>
+
+<p>
+Trigger an emergency alert through a simple,
+easy-to-use SOS interface.
+</p>
+
+</div>
+
+
+<div class="feature">
+
+<div class="icon">📍</div>
+
+<h3>Location Sharing</h3>
+
+<p>
+Get your current location through the device
+location service when permission is available.
+</p>
+
+</div>
+
+
+<div class="feature">
+
+<div class="icon">👥</div>
+
+<h3>Trusted Contacts</h3>
+
+<p>
+Connect important people who can be contacted
+during an emergency.
+</p>
+
+</div>
+
+
+<div class="feature">
+
+<div class="icon">📞</div>
+
+<h3>Emergency Calling</h3>
+
+<p>
+Quickly access emergency calling options from
+the safety interface.
+</p>
+
+</div>
+
+
+<div class="feature">
+
+<div class="icon">🔔</div>
+
+<h3>Safety Alerts</h3>
+
+<p>
+Designed to provide quick visual feedback when
+an emergency action is activated.
+</p>
+
+</div>
+
+
+<div class="feature">
+
+<div class="icon">🛡️</div>
+
+<h3>Safety First</h3>
+
+<p>
+A simple interface focused on accessibility,
+speed and emergency awareness.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     HOW IT WORKS
+========================= -->
+
+<section id="how">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>How <span>NavRakshak</span> Works</h2>
+
+<p>
+Three simple steps for emergency assistance.
+</p>
+
+</div>
+
+
+<div class="steps">
+
+<div class="step">
+
+<div class="step-number">1</div>
+
+<h3>Register Contacts</h3>
+
+<p>
+Add people you trust and keep their details
+ready for emergency situations.
+</p>
+
+</div>
+
+
+<div class="step">
+
+<div class="step-number">2</div>
+
+<h3>Activate SOS</h3>
+
+<p>
+Press the SOS button whenever you need
+emergency assistance.
+</p>
+
+</div>
+
+
+<div class="step">
+
+<div class="step-number">3</div>
+
+<h3>Share Location</h3>
+
+<p>
+The system can request your device location
+and display it for the emergency workflow.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     DASHBOARD
+========================= -->
+
+<section id="dashboard">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Safety <span>Dashboard</span></h2>
+
+<p>
+A simple overview of your current safety status.
+</p>
+
+</div>
+
+
+<div class="dashboard">
+
+<div class="dashboard-box">
+
+<div class="status">
+
+<strong>Safety Status</strong>
+
+<span class="online">
+● ACTIVE
+</span>
+
+</div>
+
+<p style="color:#888;">
+NavRakshak safety system is ready.
+</p>
+
+<br>
+
+<button class="btn btn-primary" onclick="getLocation()">
+    📍 Check Location
+</button>
+
+</div>
+
+
+<div class="dashboard-box">
+
+<h3>Current Location</h3>
+
+<div class="location-box" style="margin-top:20px;">
+
+<strong id="locationText">
+Location not checked
+</strong>
+
+<p id="coordinates">
+Press "Check Location" to request location.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     CTA
+========================= -->
+
+<section class="cta">
+
+<div class="container">
+
+<h2>Stay Alert. Stay Safe.</h2>
+
+<p>
+NavRakshak — technology designed with safety in mind.
+</p>
+
+<button class="btn btn-primary" onclick="openSOS()">
+    🚨 Activate SOS Demo
+</button>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+<p>
+© 2026 <span>NavRakshak</span>. Smart Safety Technology.
+</p>
+
+<p style="margin-top:8px;font-size:12px;">
+Demo website — emergency features require backend/device integration
+for real-world deployment.
+</p>
+
+</footer>
+
+
+<!-- =========================
+     SOS MODAL
+========================= -->
+
+<div class="modal" id="sosModal">
+
+<div class="modal-box">
+
+<h2>🚨 SOS ACTIVATION</h2>
+
+<p>
+Emergency response demo will start.
+Cancel if this was triggered accidentally.
+</p>
+
+<div class="countdown" id="countdown">
+5
+</div>
+
+<div class="modal-buttons">
+
+<button class="btn btn-outline" onclick="cancelSOS()">
+Cancel
+</button>
+
+<button class="btn btn-primary" onclick="activateSOS()">
+Activate Now
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   MOBILE MENU
+========================= */
+
+function toggleMenu() {
+
+    document
+        .getElementById("navLinks")
+        .classList.toggle("active");
+
+}
+
+
+/* =========================
+   SOS SYSTEM
+========================= */
+
+let countdownTimer;
+let count = 5;
+
+function openSOS() {
+
+    const modal = document.getElementById("sosModal");
+
+    modal.classList.add("active");
+
+    count = 5;
+
+    document.getElementById("countdown").textContent = count;
+
+    clearInterval(countdownTimer);
+
+    countdownTimer = setInterval(() => {
+
+        count--;
+
+        document.getElementById("countdown").textContent = count;
+
+        if(count <= 0) {
+
+            clearInterval(countdownTimer);
+
+            activateSOS();
+
+        }
+
+    },1000);
+
+}
+
+
+function cancelSOS() {
+
+    clearInterval(countdownTimer);
+
+    document
+        .getElementById("sosModal")
+        .classList.remove("active");
+
+}
+
+
+function activateSOS() {
+
+    clearInterval(countdownTimer);
+
+    document
+        .getElementById("sosModal")
+        .classList.remove("active");
+
+    alert(
+        "🚨 SOS DEMO ACTIVATED!\n\n" +
+        "Emergency workflow started.\n" +
+        "In a real NavRakshak application, this step would notify configured emergency contacts and/or emergency services."
+    );
+
+}
+
+
+/* =========================
+   LOCATION
+========================= */
+
+function getLocation() {
+
+    const locationText =
+        document.getElementById("locationText");
+
+    const coordinates =
+        document.getElementById("coordinates");
+
+
+    if(!navigator.geolocation) {
+
+        locationText.textContent =
+            "Location unavailable";
+
+        coordinates.textContent =
+            "Your browser does not support geolocation.";
+
+        return;
+
+    }
+
+
+    locationText.textContent =
+        "Requesting location...";
+
+
+    coordinates.textContent =
+        "Please allow location permission.";
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position) {
+
+            const lat =
+                position.coords.latitude.toFixed(6);
+
+            const lon =
+                position.coords.longitude.toFixed(6);
+
+
+            locationText.textContent =
+                "Location detected ✓";
+
+            coordinates.textContent =
+                `Latitude: ${lat} | Longitude: ${lon}`;
+
+        },
+
+        function(error) {
+
+            locationText.textContent =
+                "Location permission unavailable";
+
+            coordinates.textContent =
+                "Please allow location access in your browser.";
+
+        }
+
+    );
+
+}
+
+
+/* =========================
+   CLOSE MOBILE MENU
+========================= */
+
+document.querySelectorAll(".nav-links a")
+.forEach(link => {
+
+    link.addEventListener("click", () => {
+
+        document
+            .getElementById("navLinks")
+            .classList.remove("active");
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
